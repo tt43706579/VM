@@ -237,7 +237,7 @@ textarea{min-height:82px;resize:vertical}
       <div class="actions">
         <button class="secondary" onclick="resetForm()">清空表單</button>
         <button class="secondary" onclick="shareCurrent()">分享本筆摘要</button>
-        <button class="secondary" onclick="exportCSV()">匯出全部 CSV</button>
+        <button class="secondary" onclick="exportExcel()">匯出 Excel</button>
         <button class="danger" onclick="clearAll()">刪除全部</button>
       </div>
     </div>
@@ -566,6 +566,79 @@ function csvEscape(v){
   v = String(v === undefined || v === null ? "" : v);
   return '"' + v.split('"').join('""') + '"';
 }
+
+
+function excelCell(v){
+  v = String(v === undefined || v === null ? "" : v);
+  return "<td>" + v.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;") + "</td>";
+}
+
+function exportExcel(){
+  var all = getRecords();
+  if(!all.length){ alert("目前沒有資料可匯出"); return; }
+
+  var headers = [
+    "候選點","區域","時段","紀錄人員","店面型態","總分","建議",
+    "人流車流","客群","價位匹配","競品環境","可見度","拍照品牌","日夜適配","交通停車","營運風險",
+    "10分鐘行人","10分鐘車流","競品數","競品類型",
+    "餐點價位","咖啡飲料價位","啤酒價位","調酒價位","價位感覺",
+    "本地客","中國台灣客","韓國客","日本歐美其他","主要人群","語言國籍觀察","消費能力",
+    "面寬","可行性","一句話結論","備註","地址/Map","建立時間"
+  ];
+
+  var rows = [];
+  rows.push(headers);
+
+  for(var i=0;i<all.length;i++){
+    var r = all[i];
+    var s = r.scores || {};
+    rows.push([
+      r.name,r.areaType,r.timeSlot,r.observer,r.storeType,r.total,r.decision,
+      s.trafficScore,s.customerFit,s.priceFit,s.competition,s.visibility,s.photo,s.dayNight,s.access,s.operation,
+      r.pedestrians,r.traffic,r.competitors,r.competitorTypes,
+      r.foodPrice,r.drinkPrice,r.beerPrice,r.cocktailPrice,r.priceLevel,
+      r.localRatio,r.chinaTaiwanRatio,r.koreaRatio,r.otherForeignRatio,r.crowdType,r.languageObservation,r.spendingPower,
+      r.frontage,(r.checks||[]).join(" / "),r.summary,r.note,r.basicNote,r.createdAt
+    ]);
+  }
+
+  var table = '<table border="1"><thead><tr>';
+  for(var h=0; h<headers.length; h++){
+    table += '<th style="background:#0f766e;color:#ffffff;font-weight:bold;">' + headers[h] + '</th>';
+  }
+  table += '</tr></thead><tbody>';
+
+  for(var rIndex=1; rIndex<rows.length; rIndex++){
+    table += '<tr>';
+    for(var c=0; c<rows[rIndex].length; c++){
+      table += excelCell(rows[rIndex][c]);
+    }
+    table += '</tr>';
+  }
+  table += '</tbody></table>';
+
+  var excelHtml = ''
+    + '<html xmlns:o="urn:schemas-microsoft-com:office:office" '
+    + 'xmlns:x="urn:schemas-microsoft-com:office:excel" '
+    + 'xmlns="http://www.w3.org/TR/REC-html40">'
+    + '<head><meta charset="UTF-8">'
+    + '<style>td,th{mso-number-format:"\\@";font-family:Arial,"Noto Sans TC",sans-serif;font-size:10pt;} th{background:#0f766e;color:#fff;} </style>'
+    + '</head><body>'
+    + '<h2>店面選址評分紀錄</h2>'
+    + table
+    + '</body></html>';
+
+  var blob = new Blob(["\ufeff" + excelHtml], {type:"application/vnd.ms-excel;charset=utf-8"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "店面選址評分紀錄.xls";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 
 function exportCSV(){
   var all = getRecords();

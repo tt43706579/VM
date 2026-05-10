@@ -3,23 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="北寧評分">
-<title>北寧選址手機評分表 iPhone相容版</title>
+<title>店面選址手機評分表｜客群價位版</title>
 <style>
 :root{
   --bg:#f4efe6;--card:#fffaf3;--text:#231f20;--muted:#756c61;
   --accent:#0f766e;--gold:#e7ae58;--line:#e3d7c9;--bad:#b94a48;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:#f4efe6;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;line-height:1.4}
-header{position:sticky;top:0;z-index:20;padding:16px 16px 12px;background:#0f766e;color:white;box-shadow:0 3px 14px rgba(0,0,0,.15)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;line-height:1.4}
+header{position:sticky;top:0;z-index:20;padding:16px 16px 12px;background:var(--accent);color:white;box-shadow:0 3px 14px rgba(0,0,0,.15)}
 header h1{font-size:18px;margin:0;font-weight:800}
 header p{font-size:12px;margin:4px 0 0;opacity:.9}
 main{max-width:820px;margin:0 auto;padding:14px 12px 110px}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 6px;font-size:14px;font-weight:800;color:#5b5148}
-.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;margin:12px 0;padding:14px;box-shadow:0 8px 22px rgba(59,44,24,.08)}
 h2{font-size:17px;margin:2px 0 12px}.small{font-size:12px;color:var(--muted)}
 label{display:block;font-size:13px;color:var(--muted);font-weight:750;margin:0 0 6px}
@@ -27,6 +22,9 @@ input,select,textarea{width:100%;border:1px solid #d8cbbd;background:white;borde
 textarea{min-height:82px;resize:vertical}
 .grid{display:grid;gap:12px}.grid.two{grid-template-columns:1fr 1fr}
 @media(max-width:520px){.grid.two{grid-template-columns:1fr}}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 6px;font-size:14px;font-weight:800;color:#5b5148}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .score-line{padding:13px 0;border-top:1px solid var(--line)}.score-line:first-child{border-top:0}
 .score-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:9px}
 .score-head strong{font-size:15px}.weight{font-size:12px;color:var(--muted);white-space:nowrap}
@@ -48,42 +46,43 @@ textarea{min-height:82px;resize:vertical}
 .record h3{font-size:16px;margin:0 0 5px}.pill{display:inline-block;background:#e8f4f1;color:#0f5f57;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900;margin-left:5px}
 .meta{font-size:12px;color:var(--muted);margin:2px 0}.mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
 .mini button{border:1px solid var(--line);background:white;border-radius:12px;padding:10px;font-weight:800;color:#463d35}
-.hide{display:none!important}.rank{font-weight:900;color:var(--gold);margin-right:4px}
+.hide{display:none}.rank{font-weight:900;color:var(--gold);margin-right:4px}
 .note{background:#fff;border-left:4px solid var(--gold);border-radius:12px;padding:10px;font-size:13px;color:#5d5146;margin-top:8px}
 </style>
 </head>
+
 <body>
 <header>
-  <h1>北寧市中心酒吧選址評分</h1>
-  <p>iPhone 相容版｜手機直接打分｜可分享摘要到 LINE</p>
+  <h1>店面選址手機評分表</h1>
+  <p>客群價位版｜先看商圈、人流、競品、客群與消費能力</p>
 </header>
 
 <main>
   <div class="tabs">
-    <button class="tab active" id="btn-form" onclick="showTab('form')">填寫</button>
-    <button class="tab" id="btn-list" onclick="showTab('list')">紀錄</button>
-    <button class="tab" id="btn-guide" onclick="showTab('guide')">規則</button>
+    <button class="tab active" id="btnForm" onclick="showTab('form')">填寫</button>
+    <button class="tab" id="btnList" onclick="showTab('list')">紀錄</button>
+    <button class="tab" id="btnGuide" onclick="showTab('guide')">規則</button>
   </div>
 
-  <section id="tab-form">
+  <section id="formSection">
     <div class="card">
       <h2>基本資料</h2>
       <div class="grid">
-        <div><label>候選點名稱 *</label><input id="placeName" placeholder="例：Võ Cường 候選點 A"></div>
+        <div><label>候選點名稱 *</label><input id="placeName" placeholder="例：Võ Cường 候選點 A / 市中心轉角店面"></div>
         <div class="grid two">
           <div><label>區域類型</label><select id="areaType">
             <option>北寧市中心</option><option>Võ Cường 周邊</option><option>飯店 / 商務客區</option>
-            <option>餐飲 / 酒吧街</option><option>主要路口 / 高可見度點位</option>
-            <option>Yên Phong 1/2 快閃驗證</option><option>Quế Võ 1 快閃驗證</option><option>Nam Sơn–Hạp Lĩnh 快閃驗證</option><option>其他</option>
+            <option>餐飲集中區</option><option>咖啡廳 / 年輕人聚集區</option><option>酒吧 / 夜生活區</option>
+            <option>主要路口 / 高可見度點位</option><option>工業區快閃驗證</option><option>住宅區周邊</option><option>其他</option>
           </select></div>
           <div><label>觀察時段</label><select id="timeSlot">
-            <option>午餐 11:00–13:00</option><option>下班 17:00–19:00</option><option>晚餐 19:00–21:00</option>
-            <option>酒吧 21:00–23:30</option><option>深夜 23:30–01:00</option><option>全天綜合</option>
+            <option>早餐 07:00–09:00</option><option>午餐 11:00–13:00</option><option>下班 17:00–19:00</option>
+            <option>晚餐 19:00–21:00</option><option>夜間 21:00–23:30</option><option>深夜 23:30–01:00</option><option>全天綜合</option>
           </select></div>
         </div>
         <div class="grid two">
           <div><label>紀錄人員 / 組別</label><input id="observer" placeholder="例：A組 / Lucas"></div>
-          <div><label>租金 / 月</label><input id="rentText" placeholder="例：20M VND"></div>
+          <div><label>店面型態</label><input id="storeType" placeholder="例：1F / 轉角 / 雙店面 / 近飯店"></div>
         </div>
         <div><label>Google Map 連結 / 地址</label><textarea id="basicNote" placeholder="貼 Google Map 連結、地址、房東電話、第一印象"></textarea></div>
       </div>
@@ -94,29 +93,143 @@ textarea{min-height:82px;resize:vertical}
       <div class="grid two">
         <div><label>10 分鐘行人數</label><input id="pedestrians" inputmode="numeric" placeholder="例：35"></div>
         <div><label>10 分鐘機車 / 汽車流量</label><input id="traffic" inputmode="numeric" placeholder="例：80"></div>
-        <div><label>附近競品數</label><input id="competitors" inputmode="numeric" placeholder="例：5"></div>
+        <div><label>附近競品數</label><input id="competitors" inputmode="numeric" placeholder="例：8"></div>
         <div><label>粗估店面面寬</label><input id="frontage" placeholder="例：5m / 轉角"></div>
       </div>
+      <div style="height:12px"></div>
+      <label>主要競品類型</label>
+      <textarea id="competitorTypes" placeholder="例：咖啡廳 3 間、越式餐廳 4 間、韓式餐廳 2 間、酒吧 1 間、KTV 1 間、便利商店 1 間"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>餐點 / 飲料價位觀察</h2>
+      <div class="grid two">
+        <div><label>一般餐點價位</label><input id="foodPrice" placeholder="例：60k–120k VND / 便當 50k / 韓式 180k"></div>
+        <div><label>咖啡 / 無酒精飲料價位</label><input id="drinkPrice" placeholder="例：35k–70k VND"></div>
+        <div><label>啤酒價位</label><input id="beerPrice" placeholder="例：40k–80k VND / 瓶"></div>
+        <div><label>調酒 / 酒精飲品價位</label><input id="cocktailPrice" placeholder="例：120k–220k VND"></div>
+      </div>
+      <div style="height:12px"></div>
+      <label>價位感覺</label>
+      <select id="priceLevel">
+        <option>未觀察</option>
+        <option>偏便宜，本地日常消費</option>
+        <option>中等，年輕人/上班族可接受</option>
+        <option>中高，外派/商務客比較能接受</option>
+        <option>偏高，像高級餐酒館/商務招待</option>
+      </select>
+      <div class="note">建議拍菜單。價位不只看最低價，也看「現場客人實際點什麼」。</div>
+    </div>
+
+    <div class="card">
+      <h2>人群 / 客群觀察</h2>
+      <div class="grid two">
+        <div><label>本地客比例</label><select id="localRatio"><option>未觀察</option><option>低</option><option>中</option><option>高</option></select></div>
+        <div><label>中國 / 台灣客比例</label><select id="chinaTaiwanRatio"><option>未觀察</option><option>低</option><option>中</option><option>高</option></select></div>
+        <div><label>韓國客比例</label><select id="koreaRatio"><option>未觀察</option><option>低</option><option>中</option><option>高</option></select></div>
+        <div><label>日本 / 歐美 / 其他外國客比例</label><select id="otherForeignRatio"><option>未觀察</option><option>低</option><option>中</option><option>高</option></select></div>
+      </div>
+      <div style="height:12px"></div>
+      <label>主要人群類型</label>
+      <textarea id="crowdType" placeholder="例：本地年輕人、工業區工程師、韓國外派、商務出差客、家庭客、下班族、學生、觀光客"></textarea>
+      <div style="height:12px"></div>
+      <label>語言 / 國籍觀察</label>
+      <textarea id="languageObservation" placeholder="例：聽到韓文較多；有中國客抽菸聊天；本地年輕人拍照；飯店外國客步行經過"></textarea>
+      <div style="height:12px"></div>
+      <label>消費能力感覺</label>
+      <select id="spendingPower">
+        <option>未觀察</option>
+        <option>低：偏價格敏感</option>
+        <option>中：可接受平價社交消費</option>
+        <option>中高：可接受小酒館/調酒消費</option>
+        <option>高：商務招待/高客單有機會</option>
+      </select>
     </div>
 
     <div class="card">
       <h2>快速評分 1～5 分</h2>
-      <div id="scoreBox"><p class="small">載入評分欄位中...</p></div>
+
+      <div class="score-line" data-id="trafficScore" data-weight="16">
+        <div class="score-head"><strong>人流與車流潛力</strong><span class="weight">權重 16%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">不只看酒吧人流，也看午餐、晚餐、咖啡、通勤、散步客流。</div>
+      </div>
+
+      <div class="score-line" data-id="customerFit" data-weight="17">
+        <div class="score-head"><strong>目標客群吻合度</strong><span class="weight">權重 17%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">是否有年輕人、外派、工程師、商務客、當地消費客等你們想要的客群。</div>
+      </div>
+
+      <div class="score-line" data-id="priceFit" data-weight="10">
+        <div class="score-head"><strong>價位與消費能力匹配</strong><span class="weight">權重 10%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">周邊客群是否能接受你們未來的餐點、飲料、酒精價位。</div>
+      </div>
+
+      <div class="score-line" data-id="competition" data-weight="13">
+        <div class="score-head"><strong>競品環境健康度</strong><span class="weight">權重 13%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">競品不一定是壞事。附近有餐廳、咖啡廳、酒吧代表有消費習慣；但同質性太高或價格戰就扣分。</div>
+      </div>
+
+      <div class="score-line" data-id="visibility" data-weight="10">
+        <div class="score-head"><strong>店面可見度</strong><span class="weight">權重 10%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">路過是否看得到、招牌是否醒目、轉角/面寬是否有優勢。</div>
+      </div>
+
+      <div class="score-line" data-id="photo" data-weight="10">
+        <div class="score-head"><strong>拍照記憶點 / 品牌感</strong><span class="weight">權重 10%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">門面是否有特色、客人是否會拍照、是否容易做出記憶點。</div>
+      </div>
+
+      <div class="score-line" data-id="dayNight" data-weight="10">
+        <div class="score-head"><strong>日夜營業適配性</strong><span class="weight">權重 10%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">白天賣吃的/飲料不突兀，晚上轉成社交小酒館也合理。</div>
+      </div>
+
+      <div class="score-line" data-id="access" data-weight="7">
+        <div class="score-head"><strong>交通與停車</strong><span class="weight">權重 7%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">機車/汽車可否停、Grab 是否好上下客、客人是否容易找到。</div>
+      </div>
+
+      <div class="score-line" data-id="operation" data-weight="7">
+        <div class="score-head"><strong>營運可行性 / 風險低</strong><span class="weight">權重 7%</span></div>
+        <div class="score-buttons"><button onclick="setScore(this,1)">1</button><button onclick="setScore(this,2)">2</button><button onclick="setScore(this,3)">3</button><button onclick="setScore(this,4)">4</button><button onclick="setScore(this,5)">5</button></div>
+        <div class="hint">可否賣酒、營業時間、噪音、排煙、廁所、電力、招牌、鄰居風險。</div>
+      </div>
     </div>
 
     <div class="card">
       <h2>開店可行性檢查</h2>
-      <div id="checks" class="checks"><p class="small">載入檢查欄位中...</p></div>
+      <div class="checks">
+        <label class="check"><input type="checkbox" value="可賣酒"><span>可賣酒</span></label>
+        <label class="check"><input type="checkbox" value="可營業到 24:00 後"><span>可營業到 24:00 後</span></label>
+        <label class="check"><input type="checkbox" value="可做招牌"><span>可做招牌</span></label>
+        <label class="check"><input type="checkbox" value="可做戶外座位"><span>可做戶外座位</span></label>
+        <label class="check"><input type="checkbox" value="排煙 / 油煙可處理"><span>排煙 / 油煙可處理</span></label>
+        <label class="check"><input type="checkbox" value="廁所條件 OK"><span>廁所條件 OK</span></label>
+        <label class="check"><input type="checkbox" value="電力容量 OK"><span>電力容量 OK</span></label>
+        <label class="check"><input type="checkbox" value="機車停車方便"><span>機車停車方便</span></label>
+        <label class="check"><input type="checkbox" value="汽車 / Grab 上下客方便"><span>汽車 / Grab 上下客方便</span></label>
+        <label class="check"><input type="checkbox" value="附近住戶噪音風險低"><span>附近住戶噪音風險低</span></label>
+        <label class="check"><input type="checkbox" value="垃圾處理方便"><span>垃圾處理方便</span></label>
+        <label class="check"><input type="checkbox" value="需要二訪確認"><span>需要二訪確認</span></label>
+      </div>
     </div>
 
     <div class="card">
       <h2>補充紀錄</h2>
       <label>現場備註</label>
-      <textarea id="note" placeholder="例：23:00 後仍有人流；店面好拍；隔壁有咖啡廳；附近可能有噪音限制"></textarea>
+      <textarea id="note" placeholder="例：午餐咖啡廳滿座；隔壁韓式餐廳客單高；23:00 後人流下降；同條街有 KTV 和便利商店"></textarea>
       <div style="height:12px"></div>
       <label>一句話結論</label>
-      <textarea id="summary" placeholder="例：適合 Top 3 候選 / 晚上強但租金需確認 / 午餐弱但很適合酒吧"></textarea>
-      <div class="note">提醒：同一個 Top 候選點，建議至少填「午餐/下班」與「21:00 後」兩筆紀錄。</div>
+      <textarea id="summary" placeholder="例：適合 Top 3 候選 / 中韓客群明顯 / 本地客多但價格敏感 / 白天強晚上普通"></textarea>
+      <div class="note">提醒：本版先不看租金，目標是判斷「哪個商圈/點位值得二訪」。租金等第二輪再談。</div>
     </div>
 
     <div class="card">
@@ -130,7 +243,7 @@ textarea{min-height:82px;resize:vertical}
     </div>
   </section>
 
-  <section id="tab-list" class="hide">
+  <section id="listSection" class="hide">
     <div class="card">
       <h2>已儲存候選點</h2>
       <div class="small">資料存在目前這支手機的瀏覽器內。不同人手機不會自動同步，最後可各自分享摘要到 LINE 群組。</div>
@@ -138,23 +251,26 @@ textarea{min-height:82px;resize:vertical}
     </div>
   </section>
 
-  <section id="tab-guide" class="hide">
+  <section id="guideSection" class="hide">
     <div class="card">
       <h2>評分規則</h2>
-      <p><b>5 分：</b>非常適合，可優先二訪或談租金。</p>
-      <p><b>4 分：</b>條件不錯，但需確認租金、法規或夜間人流。</p>
+      <p><b>5 分：</b>非常適合，值得優先二訪。</p>
+      <p><b>4 分：</b>條件不錯，但需補查夜間人流或營運條件。</p>
       <p><b>3 分：</b>普通，可列備選。</p>
-      <p><b>2 分：</b>有明顯疑慮，除非租金很低。</p>
+      <p><b>2 分：</b>有明顯疑慮。</p>
       <p><b>1 分：</b>不建議。</p>
     </div>
     <div class="card">
-      <h2>Top 候選點 Pass 條件</h2>
-      <p>• 21:00 後仍有人流</p>
-      <p>• 門面可見度高、好拍、好做招牌</p>
-      <p>• 機車停車或 Grab 上下客方便</p>
-      <p>• 可賣酒、可營業到 24:00 後</p>
-      <p>• 噪音與鄰居風險低</p>
-      <p>• 租金不會吃掉太多現金流</p>
+      <h2>客群怎麼看</h2>
+      <p><b>本地客多：</b>要注意價格親民、氣氛自然，不要太高級。</p>
+      <p><b>韓國客多：</b>可觀察韓式餐廳、燒烤、KTV、商務聚餐需求。</p>
+      <p><b>中國 / 台灣客多：</b>可觀察中餐、宵夜、小酌、工程師下班社交需求。</p>
+      <p><b>外派 / 商務客多：</b>可接受較高客單，但店面質感、服務、語言溝通要更好。</p>
+    </div>
+    <div class="card">
+      <h2>價位怎麼記</h2>
+      <p>建議至少記這四個：一般餐點、咖啡/飲料、啤酒、調酒。</p>
+      <p>不要只看最低價，要看現場客人實際點什麼，以及店內客人是否坐很久。</p>
     </div>
   </section>
 </main>
@@ -170,77 +286,66 @@ textarea{min-height:82px;resize:vertical}
 </div>
 
 <script>
-var criteria = [
- {id:"lunch",name:"中午用餐潛力",weight:15,hint:"11:00–13:00 是否有人流、外送/簡餐需求、附近上班族。"},
- {id:"night",name:"夜間酒吧人流",weight:20,hint:"21:00 後是否仍有人、是否有小酌/社交氣氛。"},
- {id:"target",name:"目標客群吻合度",weight:15,hint:"外派、工程師、商務客、年輕當地客是否符合。"},
- {id:"visibility",name:"店面可見度",weight:10,hint:"路過是否看得到、招牌是否醒目、轉角/面寬是否有優勢。"},
- {id:"photo",name:"拍照記憶點",weight:10,hint:"門面是否有特色、客人是否會想拍照打卡、是否好做品牌。"},
- {id:"access",name:"交通與停車",weight:10,hint:"機車/汽車可否停、Grab 是否好上下客。"},
- {id:"rentScore",name:"租金合理性",weight:10,hint:"租金與人流是否匹配，是否撐得住淡季。"},
- {id:"operation",name:"營運可行性",weight:5,hint:"可否賣酒、營業時間、排煙、廁所、電力、招牌等。"},
- {id:"risk",name:"風險低",weight:5,hint:"噪音、鄰居、警察、施工、合約風險越低分數越高。"}
-];
-
-var checkItems = ["可賣酒","可營業到 24:00 後","可做招牌","可做戶外座位","排煙 / 油煙可處理","廁所條件 OK","電力容量 OK","機車停車方便","汽車 / Grab 上下客方便","附近住戶噪音風險低","垃圾處理方便","房東願意談裝潢期","需要二訪確認"];
 var scores = {};
-for (var i=0; i<criteria.length; i++) { scores[criteria[i].id] = 0; }
 
 function showTab(tab){
-  var tabs = ["form","list","guide"];
-  for (var i=0; i<tabs.length; i++) {
-    document.getElementById("tab-" + tabs[i]).classList.add("hide");
-    document.getElementById("btn-" + tabs[i]).classList.remove("active");
+  document.getElementById("formSection").classList.add("hide");
+  document.getElementById("listSection").classList.add("hide");
+  document.getElementById("guideSection").classList.add("hide");
+  document.getElementById("btnForm").classList.remove("active");
+  document.getElementById("btnList").classList.remove("active");
+  document.getElementById("btnGuide").classList.remove("active");
+
+  if(tab === "form"){
+    document.getElementById("formSection").classList.remove("hide");
+    document.getElementById("btnForm").classList.add("active");
   }
-  document.getElementById("tab-" + tab).classList.remove("hide");
-  document.getElementById("btn-" + tab).classList.add("active");
-  if (tab === "list") { renderRecords(); }
+  if(tab === "list"){
+    document.getElementById("listSection").classList.remove("hide");
+    document.getElementById("btnList").classList.add("active");
+    renderRecords();
+  }
+  if(tab === "guide"){
+    document.getElementById("guideSection").classList.remove("hide");
+    document.getElementById("btnGuide").classList.add("active");
+  }
 }
 
-function renderScores(){
-  var html = "";
-  for (var i=0; i<criteria.length; i++) {
-    var c = criteria[i];
-    html += '<div class="score-line">';
-    html += '<div class="score-head"><strong>' + c.name + '</strong><span class="weight">權重 ' + c.weight + '%</span></div>';
-    html += '<div class="score-buttons">';
-    for (var n=1; n<=5; n++) {
-      var active = scores[c.id] === n ? " active" : "";
-      html += '<button type="button" class="' + active + '" onclick="setScore(\'' + c.id + '\',' + n + ')">' + n + '</button>';
-    }
-    html += '</div><div class="hint">' + c.hint + '</div></div>';
+function setScore(btn, val){
+  var line = btn;
+  while(line && !line.classList.contains("score-line")){
+    line = line.parentNode;
   }
-  document.getElementById("scoreBox").innerHTML = html;
+  if(!line) return;
+
+  var id = line.getAttribute("data-id");
+  scores[id] = val;
+
+  var buttons = line.getElementsByTagName("button");
+  for(var i=0;i<buttons.length;i++){
+    buttons[i].classList.remove("active");
+  }
+  btn.classList.add("active");
   updateTotal();
 }
 
-function renderChecks(){
-  var html = "";
-  for (var i=0; i<checkItems.length; i++) {
-    html += '<label class="check"><input type="checkbox" id="check' + i + '"><span>' + checkItems[i] + '</span></label>';
-  }
-  document.getElementById("checks").innerHTML = html;
-}
-
-function setScore(id,val){
-  scores[id] = val;
-  renderScores();
-}
-
 function calcTotal(){
+  var lines = document.getElementsByClassName("score-line");
   var total = 0;
-  for (var i=0; i<criteria.length; i++) {
-    var c = criteria[i];
-    total += (scores[c.id] || 0) * c.weight / 5;
+  for(var i=0;i<lines.length;i++){
+    var id = lines[i].getAttribute("data-id");
+    var weight = Number(lines[i].getAttribute("data-weight"));
+    var score = scores[id] || 0;
+    total += score * weight / 5;
   }
   return total;
 }
 
 function decisionText(total){
-  if (total >= 80) return "優先二訪 / 可談租金";
-  if (total >= 70) return "可列 Top 候選";
-  if (total >= 60) return "備選，需補查";
-  if (total > 0) return "不建議優先";
+  if(total >= 80) return "優先二訪";
+  if(total >= 70) return "可列 Top 候選";
+  if(total >= 60) return "備選，需補查";
+  if(total > 0) return "不建議優先";
   return "請完成評分";
 }
 
@@ -256,22 +361,22 @@ function val(id){
 }
 
 function getChecked(){
+  var checks = document.querySelectorAll(".checks input[type=checkbox]");
   var arr = [];
-  for (var i=0; i<checkItems.length; i++) {
-    var el = document.getElementById("check" + i);
-    if (el && el.checked) arr.push(checkItems[i]);
+  for(var i=0;i<checks.length;i++){
+    if(checks[i].checked) arr.push(checks[i].value);
   }
   return arr;
 }
 
-function getRecords(){
-  var data = localStorage.getItem("bacninh_mobile_records_v3");
-  if (!data) return [];
-  try { return JSON.parse(data); } catch(e) { return []; }
-}
-
-function setRecords(r){
-  localStorage.setItem("bacninh_mobile_records_v3", JSON.stringify(r));
+function getScoreCopy(){
+  var obj = {};
+  var lines = document.getElementsByClassName("score-line");
+  for(var i=0;i<lines.length;i++){
+    var id = lines[i].getAttribute("data-id");
+    obj[id] = scores[id] || 0;
+  }
+  return obj;
 }
 
 function makeRecord(){
@@ -282,13 +387,26 @@ function makeRecord(){
     areaType: val("areaType"),
     timeSlot: val("timeSlot"),
     observer: val("observer"),
-    rentText: val("rentText"),
+    storeType: val("storeType"),
     basicNote: val("basicNote"),
     pedestrians: val("pedestrians"),
     traffic: val("traffic"),
     competitors: val("competitors"),
     frontage: val("frontage"),
-    scores: copyScores(),
+    competitorTypes: val("competitorTypes"),
+    foodPrice: val("foodPrice"),
+    drinkPrice: val("drinkPrice"),
+    beerPrice: val("beerPrice"),
+    cocktailPrice: val("cocktailPrice"),
+    priceLevel: val("priceLevel"),
+    localRatio: val("localRatio"),
+    chinaTaiwanRatio: val("chinaTaiwanRatio"),
+    koreaRatio: val("koreaRatio"),
+    otherForeignRatio: val("otherForeignRatio"),
+    crowdType: val("crowdType"),
+    languageObservation: val("languageObservation"),
+    spendingPower: val("spendingPower"),
+    scores: getScoreCopy(),
     total: calcTotal().toFixed(1),
     decision: decisionText(calcTotal()),
     checks: getChecked(),
@@ -297,18 +415,19 @@ function makeRecord(){
   };
 }
 
-function copyScores(){
-  var obj = {};
-  for (var i=0; i<criteria.length; i++) obj[criteria[i].id] = scores[criteria[i].id];
-  return obj;
+function getRecords(){
+  var data = localStorage.getItem("site_selection_records_customer_price_v1");
+  if(!data) return [];
+  try { return JSON.parse(data); } catch(e) { return []; }
+}
+
+function setRecords(r){
+  localStorage.setItem("site_selection_records_customer_price_v1", JSON.stringify(r));
 }
 
 function saveRecord(){
   var r = makeRecord();
-  if (!r.name) { alert("請先輸入候選點名稱"); return; }
-  if (Number(r.total) === 0) {
-    if (!confirm("目前還沒評分，仍要儲存嗎？")) return;
-  }
+  if(!r.name){ alert("請先輸入候選點名稱"); return; }
   var all = getRecords();
   all.push(r);
   all.sort(function(a,b){ return Number(b.total) - Number(a.total); });
@@ -317,36 +436,21 @@ function saveRecord(){
   alert("已儲存此候選點");
 }
 
-function resetForm(){
-  var ids = ["placeName","observer","rentText","basicNote","pedestrians","traffic","competitors","frontage","note","summary"];
-  for (var i=0; i<ids.length; i++) {
-    var el = document.getElementById(ids[i]);
-    if (el) el.value = "";
-  }
-  document.getElementById("areaType").selectedIndex = 0;
-  document.getElementById("timeSlot").selectedIndex = 0;
-  for (var j=0; j<criteria.length; j++) scores[criteria[j].id] = 0;
-  for (var k=0; k<checkItems.length; k++) {
-    var ch = document.getElementById("check" + k);
-    if (ch) ch.checked = false;
-  }
-  renderScores();
-}
-
 function renderRecords(){
   var all = getRecords();
   var box = document.getElementById("records");
-  if (!all.length) {
+  if(!all.length){
     box.innerHTML = '<p class="small">尚未儲存候選點。</p>';
     return;
   }
   var html = "";
-  for (var i=0; i<all.length; i++) {
+  for(var i=0;i<all.length;i++){
     var r = all[i];
     html += '<div class="record">';
     html += '<h3><span class="rank">#' + (i+1) + '</span>' + esc(r.name) + ' <span class="pill">' + esc(r.total) + '</span></h3>';
     html += '<div class="meta">' + esc(r.decision) + '｜' + esc(r.areaType) + '｜' + esc(r.timeSlot) + '</div>';
-    html += '<div class="meta">人流 ' + esc(r.pedestrians || "-") + '｜車流 ' + esc(r.traffic || "-") + '｜租金 ' + esc(r.rentText || "-") + '</div>';
+    html += '<div class="meta">人流 ' + esc(r.pedestrians || "-") + '｜車流 ' + esc(r.traffic || "-") + '｜競品 ' + esc(r.competitors || "-") + '</div>';
+    html += '<div class="meta">客群：本地 ' + esc(r.localRatio || "-") + '｜中台 ' + esc(r.chinaTaiwanRatio || "-") + '｜韓國 ' + esc(r.koreaRatio || "-") + '</div>';
     html += '<div class="meta">' + esc(r.summary || r.note || "") + '</div>';
     html += '<div class="mini"><button onclick="shareRecord(' + r.id + ')">分享</button><button onclick="deleteRecord(' + r.id + ')">刪除</button></div>';
     html += '</div>';
@@ -355,26 +459,41 @@ function renderRecords(){
 }
 
 function recordText(r){
-  return "北寧選址評分\n" +
-  "候選點：" + r.name + "\n" +
-  "區域：" + r.areaType + "\n" +
-  "時段：" + r.timeSlot + "\n" +
-  "紀錄：" + (r.observer || "-") + "\n" +
-  "總分：" + r.total + " / 100\n" +
-  "建議：" + r.decision + "\n\n" +
-  "量化：\n" +
-  "10分鐘行人：" + (r.pedestrians || "-") + "\n" +
-  "10分鐘車流：" + (r.traffic || "-") + "\n" +
-  "競品數：" + (r.competitors || "-") + "\n" +
-  "租金：" + (r.rentText || "-") + "\n\n" +
-  "可行性：\n" + ((r.checks && r.checks.length) ? r.checks.join("、") : "-") + "\n\n" +
-  "一句話結論：\n" + (r.summary || "-") + "\n\n" +
-  "備註：\n" + (r.note || "-") + "\n\n" +
-  "地址/Map：\n" + (r.basicNote || "-");
+  return "店面選址評分（客群價位版）\\n" +
+  "候選點：" + r.name + "\\n" +
+  "區域：" + r.areaType + "\\n" +
+  "時段：" + r.timeSlot + "\\n" +
+  "紀錄：" + (r.observer || "-") + "\\n" +
+  "店面型態：" + (r.storeType || "-") + "\\n" +
+  "總分：" + r.total + " / 100\\n" +
+  "建議：" + r.decision + "\\n\\n" +
+  "量化：\\n" +
+  "10分鐘行人：" + (r.pedestrians || "-") + "\\n" +
+  "10分鐘車流：" + (r.traffic || "-") + "\\n" +
+  "競品數：" + (r.competitors || "-") + "\\n" +
+  "競品類型：" + (r.competitorTypes || "-") + "\\n\\n" +
+  "價位：\\n" +
+  "餐點：" + (r.foodPrice || "-") + "\\n" +
+  "咖啡/飲料：" + (r.drinkPrice || "-") + "\\n" +
+  "啤酒：" + (r.beerPrice || "-") + "\\n" +
+  "調酒/酒精：" + (r.cocktailPrice || "-") + "\\n" +
+  "價位感覺：" + (r.priceLevel || "-") + "\\n\\n" +
+  "客群：\\n" +
+  "本地客：" + (r.localRatio || "-") + "\\n" +
+  "中國/台灣客：" + (r.chinaTaiwanRatio || "-") + "\\n" +
+  "韓國客：" + (r.koreaRatio || "-") + "\\n" +
+  "日本/歐美/其他：" + (r.otherForeignRatio || "-") + "\\n" +
+  "主要人群：" + (r.crowdType || "-") + "\\n" +
+  "語言/國籍觀察：" + (r.languageObservation || "-") + "\\n" +
+  "消費能力：" + (r.spendingPower || "-") + "\\n\\n" +
+  "可行性：\\n" + ((r.checks && r.checks.length) ? r.checks.join("、") : "-") + "\\n\\n" +
+  "一句話結論：\\n" + (r.summary || "-") + "\\n\\n" +
+  "備註：\\n" + (r.note || "-") + "\\n\\n" +
+  "地址/Map：\\n" + (r.basicNote || "-");
 }
 
 function shareText(text){
-  if (navigator.share) {
+  if(navigator.share){
     navigator.share({text:text}).catch(function(){ copyFallback(text); });
   } else {
     copyFallback(text);
@@ -382,7 +501,7 @@ function shareText(text){
 }
 
 function copyFallback(text){
-  if (navigator.clipboard && navigator.clipboard.writeText) {
+  if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(text).then(function(){ alert("已複製，可貼到 LINE 群組"); });
   } else {
     window.prompt("請複製以下文字", text);
@@ -395,8 +514,8 @@ function shareCurrent(){
 
 function shareRecord(id){
   var all = getRecords();
-  for (var i=0; i<all.length; i++) {
-    if (all[i].id === id) {
+  for(var i=0;i<all.length;i++){
+    if(all[i].id === id){
       shareText(recordText(all[i]));
       return;
     }
@@ -404,17 +523,42 @@ function shareRecord(id){
 }
 
 function deleteRecord(id){
-  if (!confirm("確定刪除此筆紀錄？")) return;
+  if(!confirm("確定刪除此筆紀錄？")) return;
   var all = getRecords();
   var next = [];
-  for (var i=0; i<all.length; i++) if (all[i].id !== id) next.push(all[i]);
+  for(var i=0;i<all.length;i++){
+    if(all[i].id !== id) next.push(all[i]);
+  }
   setRecords(next);
   renderRecords();
 }
 
+function resetForm(){
+  var ids = ["placeName","observer","storeType","basicNote","pedestrians","traffic","competitors","frontage","competitorTypes","foodPrice","drinkPrice","beerPrice","cocktailPrice","crowdType","languageObservation","note","summary"];
+  for(var i=0;i<ids.length;i++){
+    document.getElementById(ids[i]).value = "";
+  }
+  document.getElementById("priceLevel").selectedIndex = 0;
+  document.getElementById("localRatio").selectedIndex = 0;
+  document.getElementById("chinaTaiwanRatio").selectedIndex = 0;
+  document.getElementById("koreaRatio").selectedIndex = 0;
+  document.getElementById("otherForeignRatio").selectedIndex = 0;
+  document.getElementById("spendingPower").selectedIndex = 0;
+  var buttons = document.querySelectorAll(".score-buttons button");
+  for(var j=0;j<buttons.length;j++){
+    buttons[j].classList.remove("active");
+  }
+  scores = {};
+  var checks = document.querySelectorAll(".checks input[type=checkbox]");
+  for(var k=0;k<checks.length;k++){
+    checks[k].checked = false;
+  }
+  updateTotal();
+}
+
 function clearAll(){
-  if (!confirm("確定刪除全部紀錄？")) return;
-  localStorage.removeItem("bacninh_mobile_records_v3");
+  if(!confirm("確定刪除全部紀錄？")) return;
+  localStorage.removeItem("site_selection_records_customer_price_v1");
   renderRecords();
 }
 
@@ -425,20 +569,21 @@ function csvEscape(v){
 
 function exportCSV(){
   var all = getRecords();
-  if (!all.length) { alert("目前沒有資料可匯出"); return; }
-  var headers = ["候選點","區域","時段","紀錄人員","總分","建議","中午","夜間","客群","可見度","拍照","交通","租金評分","營運","風險","10分鐘行人","10分鐘車流","競品數","面寬","租金文字","可行性","一句話結論","備註","地址/Map","建立時間"];
+  if(!all.length){ alert("目前沒有資料可匯出"); return; }
+  var headers = ["候選點","區域","時段","紀錄人員","店面型態","總分","建議","人流車流","客群","價位匹配","競品環境","可見度","拍照品牌","日夜適配","交通停車","營運風險","10分鐘行人","10分鐘車流","競品數","競品類型","餐點價位","咖啡飲料價位","啤酒價位","調酒價位","價位感覺","本地客","中國台灣客","韓國客","日本歐美其他","主要人群","語言國籍觀察","消費能力","面寬","可行性","一句話結論","備註","地址/Map","建立時間"];
   var lines = [headers.map(csvEscape).join(",")];
-  for (var i=0; i<all.length; i++) {
+  for(var i=0;i<all.length;i++){
     var r = all[i];
-    var row = [r.name,r.areaType,r.timeSlot,r.observer,r.total,r.decision,r.scores.lunch,r.scores.night,r.scores.target,r.scores.visibility,r.scores.photo,r.scores.access,r.scores.rentScore,r.scores.operation,r.scores.risk,r.pedestrians,r.traffic,r.competitors,r.frontage,r.rentText,(r.checks||[]).join(" / "),r.summary,r.note,r.basicNote,r.createdAt];
+    var s = r.scores || {};
+    var row = [r.name,r.areaType,r.timeSlot,r.observer,r.storeType,r.total,r.decision,s.trafficScore,s.customerFit,s.priceFit,s.competition,s.visibility,s.photo,s.dayNight,s.access,s.operation,r.pedestrians,r.traffic,r.competitors,r.competitorTypes,r.foodPrice,r.drinkPrice,r.beerPrice,r.cocktailPrice,r.priceLevel,r.localRatio,r.chinaTaiwanRatio,r.koreaRatio,r.otherForeignRatio,r.crowdType,r.languageObservation,r.spendingPower,r.frontage,(r.checks||[]).join(" / "),r.summary,r.note,r.basicNote,r.createdAt];
     lines.push(row.map(csvEscape).join(","));
   }
-  var csv = "\ufeff" + lines.join("\n");
+  var csv = "\\ufeff" + lines.join("\\n");
   var blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
   var url = URL.createObjectURL(blob);
   var a = document.createElement("a");
   a.href = url;
-  a.download = "北寧選址手機評分紀錄.csv";
+  a.download = "店面選址手機評分紀錄_客群價位版.csv";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -452,11 +597,8 @@ function esc(s){
   });
 }
 
-window.onload = function(){
-  renderScores();
-  renderChecks();
-  renderRecords();
-};
+updateTotal();
+renderRecords();
 </script>
 </body>
 </html>

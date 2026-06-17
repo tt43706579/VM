@@ -583,7 +583,8 @@ function excelCell(v){
 }
 
 function exportExcel(){
-  var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxWbbU0X8cjpNMtGnlr849mnLLKxGu5jNsYVLBragr63VLr7Im3c11wSuhoXGK51mL3Fw/exec";
+  var FORM_URL = "https://docs.google.com/forms/d/e/10Zha2ms0IwG9ugJUIBmuL4BoSS6fix9ocUBCQmBrZiI/formResponse";
+  var ENTRY_ID = "entry.1044634760";
 
   var all = getRecords();
   if(!all.length){ alert("目前沒有資料可匯出"); return; }
@@ -650,23 +651,26 @@ function exportExcel(){
     ]);
   }
 
-  fetch(WEB_APP_URL, {
+  var payload = {
+    headers: headers,
+    rows: rows,
+    uploadedAt: new Date().toISOString()
+  };
+
+  var formData = new FormData();
+  formData.append(ENTRY_ID, JSON.stringify(payload));
+
+  fetch(FORM_URL, {
     method: "POST",
     mode: "no-cors",
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    body: JSON.stringify({
-      headers: headers,
-      rows: rows
-    })
+    body: formData
   })
   .then(function(){
-    alert("資料已送出，請到 Google Sheet 確認是否寫入");
+    alert("資料已送出到 Google Form，請到回覆試算表確認");
   })
   .catch(function(err){
     console.error(err);
-    alert("送出失敗，請檢查網路或 Web App URL");
+    alert("送出失敗");
   });
 }
 

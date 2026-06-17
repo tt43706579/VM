@@ -583,6 +583,8 @@ function excelCell(v){
 }
 
 function exportExcel(){
+  var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxWbbU0X8cjpNMtGnlr849mnLLKxGu5jNsYVLBragr63VLr7Im3c11wSuhoXGK51mL3Fw/exec";
+
   var all = getRecords();
   if(!all.length){ alert("目前沒有資料可匯出"); return; }
 
@@ -602,35 +604,78 @@ function exportExcel(){
     var s = r.scores || {};
 
     rows.push([
-      r.name,r.areaType,r.timeSlot,r.observer,r.storeType,r.total,r.decision,
-      s.trafficScore,s.customerFit,s.priceFit,s.competition,s.visibility,s.photo,s.dayNight,s.access,s.operation,
-      r.pedestrians,r.traffic,r.competitors,r.competitorTypes,
-      r.foodPrice,r.drinkPrice,r.beerPrice,r.cocktailPrice,r.priceLevel,
-      r.localRatio,r.chinaTaiwanRatio,r.koreaRatio,r.otherForeignRatio,r.crowdType,r.languageObservation,r.spendingPower,
-      r.frontage,(r.checks||[]).join(" / "),r.summary,r.note,r.basicNote,r.createdAt
+      r.name || "",
+      r.areaType || "",
+      r.timeSlot || "",
+      r.observer || "",
+      r.storeType || "",
+      r.total || "",
+      r.decision || "",
+
+      s.trafficScore || "",
+      s.customerFit || "",
+      s.priceFit || "",
+      s.competition || "",
+      s.visibility || "",
+      s.photo || "",
+      s.dayNight || "",
+      s.access || "",
+      s.operation || "",
+
+      r.pedestrians || "",
+      r.traffic || "",
+      r.competitors || "",
+      r.competitorTypes || "",
+
+      r.foodPrice || "",
+      r.drinkPrice || "",
+      r.beerPrice || "",
+      r.cocktailPrice || "",
+      r.priceLevel || "",
+
+      r.localRatio || "",
+      r.chinaTaiwanRatio || "",
+      r.koreaRatio || "",
+      r.otherForeignRatio || "",
+      r.crowdType || "",
+      r.languageObservation || "",
+      r.spendingPower || "",
+
+      r.frontage || "",
+      (r.checks || []).join(" / "),
+      r.summary || "",
+      r.note || "",
+      r.basicNote || "",
+      r.createdAt || ""
     ]);
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbxWbbU0X8cjpNMtGnlr849mnLLKxGu5jNsYVLBragr63VLr7Im3c11wSuhoXGK51mL3Fw/exec", {
+  fetch(WEB_APP_URL, {
     method: "POST",
     body: JSON.stringify({
-      sheetName: "店面評分紀錄",
       headers: headers,
       rows: rows
     })
   })
   .then(function(res){
-    return res.json();
+    return res.text();
   })
-  .then(function(data){
-    alert("已成功上傳到 Google Sheet");
+  .then(function(text){
+    console.log("Apps Script response:", text);
+
+    var data = JSON.parse(text);
+
+    if(data.status === "success"){
+      alert("已成功上傳到 Google Sheet，共 " + data.rows + " 筆資料");
+    } else {
+      alert("上傳失敗：" + data.message);
+    }
   })
   .catch(function(err){
     console.error(err);
-    alert("上傳失敗，請檢查 Apps Script URL 或權限設定");
+    alert("上傳失敗，請檢查 Web App URL、部署權限，或 Console 錯誤訊息");
   });
 }
-
 
 function exportCSV(){
   var all = getRecords();

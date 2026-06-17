@@ -652,28 +652,21 @@ function exportExcel(){
 
   fetch(WEB_APP_URL, {
     method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
     body: JSON.stringify({
       headers: headers,
       rows: rows
     })
   })
-  .then(function(res){
-    return res.text();
-  })
-  .then(function(text){
-    console.log("Apps Script response:", text);
-
-    var data = JSON.parse(text);
-
-    if(data.status === "success"){
-      alert("已成功上傳到 Google Sheet，共 " + data.rows + " 筆資料");
-    } else {
-      alert("上傳失敗：" + data.message);
-    }
+  .then(function(){
+    alert("資料已送出，請到 Google Sheet 確認是否寫入");
   })
   .catch(function(err){
     console.error(err);
-    alert("上傳失敗，請檢查 Web App URL、部署權限，或 Console 錯誤訊息");
+    alert("送出失敗，請檢查網路或 Web App URL");
   });
 }
 
